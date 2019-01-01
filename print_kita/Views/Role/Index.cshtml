@@ -1,0 +1,40 @@
+﻿@model IEnumerable<print_kita.Models.RoleModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="container">
+    <table class="table table-striped table-bordered" >
+        <thead>
+            <tr>
+                <th>Nama Role</th>
+                <th>ID Role</th>
+                <th>Opsi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (print_kita.Models.RoleModel roles in Model)
+            {
+                <tr>
+                    <td>@roles.roleName</td>
+                    <td>ROLE - @roles.roleId</td>
+                    <td>
+                        <a class="btn btn-xs btn-primary" title="Edit Data">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+
+                        <a class="btn btn-xs btn-danger" title="Delete Data">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
