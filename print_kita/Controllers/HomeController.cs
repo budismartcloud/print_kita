@@ -8,8 +8,12 @@ namespace print_kita.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
+            if (Session["activeUser"] == null)
+                Response.Redirect("/Login", true);
+
             return View();
         }
 

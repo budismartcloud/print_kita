@@ -1,0 +1,86 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dropship Management System | Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="@Url.Content("~/Content/backend/bootstrap/css/bootstrap.min.css") ">
+    <link rel="stylesheet" href="@Url.Content("~/Content/backend/plugins/font-awesome/css/font-awesome.min.css") ">
+    <link rel="stylesheet" href=" @Url.Content("~/Content/backend/dist/css/AdminLTE.min.css") ">
+    <link rel="stylesheet" href=" @Url.Content("~/Content/core/style.css") ">
+    <link rel="stylesheet" href=" @Url.Content("~/Content/core/ajax.css") ">
+
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <div class="login-logo" style="font-size: 25px;">
+                <a href="#">
+                    <p align="center">
+                        <img src="@Url.Content("~/Content/img/logo.png")" style="margin-bottom: 10px; width: 240px;">
+                        <br>
+                        <b>Login Aplikasi</b>
+                    </p>
+                </a>
+            </div>
+            <!-- <p class="login-box-msg">Selamat datang di halaman login</p> -->
+            <div id="message"></div>
+            <form action="" onsubmit="return false;" id="form-konten" method="post">
+                <div class="form-group has-feedback">
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-block btn-primary btn-block btn-flat">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <hr />
+            Belum punya akun ? Daftar <a href="@Url.Action("Index", "Register")">Disini</a>
+
+        </div>
+        <!-- /.login-box-body -->
+
+    </div>
+
+    <script src="@Url.Content("~/Content/backend/plugins/jQuery/jQuery-2.1.4.min.js") "></script>
+    <script src="@Url.Content("~/Content/core/core.js") "></script>
+
+    <script>
+        $('#form-konten').submit(function () {
+            var data = getFormData('form-konten');
+            ajaxTransfer('/Login/Check', data, function (result) {
+                let resultData = JSON.parse(result);
+                if (resultData == 1) {
+                    $("#message").html("<div class='alert alert-success'>Login berhasil</div>");
+                    reload(1500);
+                } else if(resultData == 0) {
+                    $("#message").html("<div class='alert alert-danger'>Login belum berhasil</div>");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

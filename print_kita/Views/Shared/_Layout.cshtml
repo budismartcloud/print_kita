@@ -11,6 +11,7 @@
     <link rel="stylesheet" href=" @Url.Content("~/Content/backend/dist/css/skins/_all-skins.min.css") ">
     <link rel="stylesheet" href=" @Url.Content("~/Content/backend/plugins/datepicker/datepicker3.css") ">
     <link rel="stylesheet" href=" @Url.Content("~/Content/backend/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css") ">
+    <link rel="stylesheet" href=" @Url.Content("~/Content/core/ajax.css") ">
 
     <script src="@Url.Content("~/Content/backend/plugins/jQuery/jQuery-2.1.4.min.js") "></script>
     <script src="@Url.Content("~/Content/backend/dist/js/jquery-ui.min.js") "></script>
@@ -24,9 +25,22 @@
     <script src="@Url.Content("~/Content/backend/plugins/slimScroll/jquery.slimscroll.min.js") "></script>
     <script src="@Url.Content("~/Content/backend/plugins/fastclick/fastclick.min.js") "></script>
     <script src="@Url.Content("~/Content/backend/dist/js/app.min.js") "></script>
+    <script src="@Url.Content("~/Content/core/core.js") "></script>
+    <script>
+        function logoutApplication() {
+            var data = new FormData();
+            modalConfirm('Konfirmasi', 'Apakah anda yakin akan keluar dari applikasi?', function () {
+                ajaxTransfer('/Login/Logout', data, function (result) {
+                    $('#modal-output').html("<div class='alert alert-success'>Logout berhasil</div>");
+                });
+                reload(1500);
+            });
+        }
+    </script>
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+   
 
 
 </head>
@@ -50,7 +64,7 @@
                                 <img src="@Url.Content("~/Content/backend/dist/img/avatar5.png") " class="user-image"
                                      alt="User Image">
 
-                                    <span class="hidden-xs">Administrator</span>
+                                    <span class="hidden-xs">@Session["activeUserName"]</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="user-header">
@@ -58,8 +72,7 @@
                                              alt="User Image">
 
                                             <p>
-                                                Administrator
-                                                <small>Administrator</small>
+                                                <small>@Session["activeUserName"]</small>
                                             </p>
                                         </li>
                                         <li class="user-footer">
@@ -84,9 +97,12 @@
                                      alt="User Image">
                                 </div>
                                 <div class="pull-left info">
-                                    <p>Administrator</p>
+                                    <p>@Session["activeUserName"]</p>
                                     <a href="#">
-                                        Administrator</i>
+                                        <i>
+                                            @Session["activeUserRoleName"]
+
+                                        </i>
 
                                     </a>
                                 </div>
@@ -100,6 +116,7 @@
                                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                                     </a>
                                 </li>
+                                
                                 <li class="treeview">
                                     <a>
                                         <i class="fa fa-paperclip"></i>
